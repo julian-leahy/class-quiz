@@ -258,7 +258,7 @@ const calculateQuestions = () => {
         (function(index) {
             setTimeout(function() {
                 let medal = document.createElement('img');
-                medal.src = `../assets/no-icon.png`;
+                medal.src = `./assets/no-icon.png`;
                 medal.setAttribute('id', `img_${index}`);
                 medalsEle.appendChild(medal);
                 title.innerHTML = (index == 49) ? `${questionArr.length} Questions` : 'Calculating number of questions';

@@ -250,6 +250,13 @@ let questionArr = [{
     }
 ]
 
+const country = document.querySelector('.country');
+
+let currentQuestion, question, answer;
+
+/**
+ * Placeholder imgs for each question
+ */
 const generateImgPlacholder = () => {
     const medalsEle = document.querySelector('.medals');
     for (let index = 0; index < questionArr.length; index++) {
@@ -259,5 +266,19 @@ const generateImgPlacholder = () => {
         medal.setAttribute('class', 'no-icon');
         medalsEle.appendChild(medal);
     }
+    generateQuestion();
 }
+
+/**
+ * Generate random question
+ */
+const generateQuestion = () => {
+    let totalQuestions = questionArr.length;
+    currentQuestion = Math.floor(Math.random() * totalQuestions);
+    question = questionArr[currentQuestion].country;
+    answer = questionArr[currentQuestion].city;
+    country.innerHTML = question;
+}
+
+
 generateImgPlacholder();

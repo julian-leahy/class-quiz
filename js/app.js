@@ -250,7 +250,11 @@ let questionArr = [{
     }
 ]
 
+let qNumber = 0;
+
 const country = document.querySelector('.country');
+const submit = document.querySelector('.submit');
+const userInput = document.querySelector('.userInput');
 
 let currentQuestion, question, answer;
 
@@ -279,6 +283,45 @@ const generateQuestion = () => {
     answer = questionArr[currentQuestion].city;
     country.innerHTML = question;
 }
+
+const correctAns = () => {
+    let awardPath;
+
+    switch (questionArr[currentQuestion].firstTry) {
+        case 1:
+            awardPath = 'gold.png';
+            break;
+        default:
+            awardPath = 'silver.png';
+            break;
+    }
+
+    displayMedal(awardPath);
+
+}
+
+const displayMedal = (awardPath) => {
+
+    // remove from list
+    questionArr.splice(currentQuestion, 1);
+
+    const currentImg = document.querySelector(`#img_${qNumber}`);
+    currentImg.src = `./assets/${awardPath}`;
+    currentImg.classList.add('spin');
+    qNumber += 1;
+    generateQuestion();
+}
+
+submit.addEventListener('click', () => {
+    if (!userInput.value.trim()) return;
+
+    if (userInput.value.trim() === answer) {
+        correctAns();
+    } else {
+        console.log('W')
+    }
+
+})
 
 
 generateImgPlacholder();

@@ -250,25 +250,14 @@ let questionArr = [{
     }
 ]
 
-const title = document.querySelector('.title');
-
-const calculateQuestions = () => {
+const generateImgPlacholder = () => {
     const medalsEle = document.querySelector('.medals');
     for (let index = 0; index < questionArr.length; index++) {
-        (function(index) {
-            setTimeout(function() {
-                let medal = document.createElement('img');
-                medal.src = `./assets/no-icon.png`;
-                medal.setAttribute('id', `img_${index}`);
-                medalsEle.appendChild(medal);
-                title.innerHTML = (index == 49) ? `${questionArr.length} Questions` : 'Calculating number of questions';
-            }, 50 * index);
-
-        })(index);
-    };
+        const medal = document.createElement('img');
+        medal.src = `./assets/no-icon.png`;
+        medal.setAttribute('id', `img_${index}`);
+        medal.setAttribute('class', 'no-icon');
+        medalsEle.appendChild(medal);
+    }
 }
-
-
-
-
-calculateQuestions();
+generateImgPlacholder();

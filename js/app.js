@@ -255,6 +255,8 @@ let qNumber = 0;
 const country = document.querySelector('.country');
 const submit = document.querySelector('.submit');
 const userInput = document.querySelector('.userInput');
+const hint = document.querySelector('.hint');
+const showAnswer = document.querySelector('.show-answer');
 
 let currentQuestion, question, answer;
 
@@ -277,6 +279,8 @@ const generateImgPlacholder = () => {
  * Generate random question
  */
 const generateQuestion = () => {
+    userInput.value = '';
+    hint.innerHTML = '';
     let totalQuestions = questionArr.length;
     currentQuestion = Math.floor(Math.random() * totalQuestions);
     question = questionArr[currentQuestion].country;
@@ -284,15 +288,18 @@ const generateQuestion = () => {
     country.innerHTML = question;
 }
 
-const correctAns = () => {
+const checkAnswer = () => {
     let awardPath;
 
     switch (questionArr[currentQuestion].firstTry) {
         case 1:
             awardPath = 'gold.png';
             break;
-        default:
+        case 2:
             awardPath = 'silver.png';
+            break;
+        default:
+            awardPath = 'poop.png';
             break;
     }
 
@@ -313,12 +320,20 @@ const displayMedal = (awardPath) => {
 }
 
 submit.addEventListener('click', () => {
+    showAnswer.innerHTML = '';
     if (!userInput.value.trim()) return;
 
     if (userInput.value.trim() === answer) {
-        correctAns();
+        checkAnswer();
     } else {
-        console.log('W')
+        if (questionArr[currentQuestion].firstTry === 1) {
+            hint.innerHTML = answer.substring(0, 1);
+            questionArr[currentQuestion].firstTry = 2;
+        } else {
+            questionArr[currentQuestion].firstTry = 3;
+            showAnswer.innerHTML = `The capital of ${question} is ${answer}`;
+            checkAnswer();
+        }
     }
 
 })
